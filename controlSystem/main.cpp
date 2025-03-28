@@ -2,6 +2,7 @@
 #include <iostream>
 #include "component.h"
 #include "servo.h"
+#include "hardware.h"
 
 using namespace std;
 
@@ -22,6 +23,9 @@ Component rightShoulder = Component("Right Shoulder");
 
 
 void initialize(){
+    if(!initializeHardware()) {
+        return(1);
+    }
     // Initialize System Below
     cout << "\n\nInitializing Central System...\n\n\n";
 
@@ -55,13 +59,31 @@ void initialize(){
 
 }
 
+void controlLoop() {
+    while(true) {
+        // Simulate sensor updates
+        torso.setAccelX(rand() % 10);
+        torso.setGyroZ(rand() % 90);
+
+        // Logic to update servos/lin actuators based off updated sensor values
+        // e.g., logic to walk, turn, balance...
+
+        // Sleep between updates
+        this_thread::sleep_for(chrono::milliseconds(100)); // 10 Hz loop
+    }
+}
+
+
 void recursiveStatusPrint() {
     torso.printStatus();
 }
 
 int main(int argc, char** argv) {
     initialize();
+    
     recursiveStatusPrint();
+
+    controlLoop();
     
     return(0);
 }
