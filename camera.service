@@ -1,0 +1,16 @@
+[Unit]
+Description=Camera Stream Service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/robotics-project/camera_stream
+ExecStart=/home/pi/robotics-project/camera_stream/cam_stream
+Restart=on-failure
+User=pi
+Environment=DISPLAY=:0
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,16 @@
+[Unit]
+Description=Robotics Control System
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/robotics-project/control_system
+ExecStart=/home/pi/robotics-project/control_system/robot
+Restart=on-failure
+User=pi
+Environment=DISPLAY=:0
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
